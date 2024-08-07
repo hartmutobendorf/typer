@@ -4,10 +4,10 @@ import typer
 def main(
     name: str = typer.Argument(..., help="Who to greet"),
     lastname: str = typer.Argument(
-        "", help="The last name", rich_help_panel="Secondary Arguments"
+        "", help="The last name", help_panel="Secondary Arguments"
     ),
     age: str = typer.Argument(
-        "", help="The user's age", rich_help_panel="Secondary Arguments"
+        "", help="The user's age", help_panel="Secondary Arguments"
     ),
 ):
     """

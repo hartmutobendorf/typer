@@ -19,7 +19,7 @@ def delete(username: str):
     print(f"Deleting user: {username}")
 
 
-@app.command(rich_help_panel="Utils and Configs")
+@app.command(help_panel="Utils and Configs")
 def config(configuration: str):
     """
     [blue]Configure[/blue] the system. :wrench:
@@ -27,7 +27,7 @@ def config(configuration: str):
     print(f"Configuring the system with: {configuration}")
 
 
-@app.command(rich_help_panel="Utils and Configs")
+@app.command(help_panel="Utils and Configs")
 def sync():
     """
     [blue]Synchronize[/blue] the system or something fancy like that. :recycle:
@@ -35,7 +35,7 @@ def sync():
     print("Syncing the system")
 
 
-@app.command(rich_help_panel="Help and Others")
+@app.command(help_panel="Help and Others")
 def help():
     """
     Get [yellow]help[/yellow] with the system. :question:
@@ -43,7 +43,7 @@ def help():
     print("Opening help portal...")
 
 
-@app.command(rich_help_panel="Help and Others")
+@app.command(help_panel="Help and Others")
 def report():
     """
     [yellow]Report[/yellow] an issue. :bug:

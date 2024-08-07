@@ -12,19 +12,19 @@ def create(
     lastname: Annotated[
         str,
         typer.Argument(
-            help="The last name of the new user", rich_help_panel="Secondary Arguments"
+            help="The last name of the new user", help_panel="Secondary Arguments"
         ),
     ] = "",
     force: Annotated[bool, typer.Option(help="Force the creation of the user")] = False,
     age: Annotated[
         Union[int, None],
-        typer.Option(help="The age of the new user", rich_help_panel="Additional Data"),
+        typer.Option(help="The age of the new user", help_panel="Additional Data"),
     ] = None,
     favorite_color: Annotated[
         Union[str, None],
         typer.Option(
             help="The favorite color of the new user",
-            rich_help_panel="Additional Data",
+            help_panel="Additional Data",
         ),
     ] = None,
 ):
@@ -34,7 +34,7 @@ def create(
     print(f"Creating user: {username}")
 
 
-@app.command(rich_help_panel="Utils and Configs")
+@app.command(help_panel="Utils and Configs")
 def config(configuration: str):
     """
     [blue]Configure[/blue] the system. :wrench:

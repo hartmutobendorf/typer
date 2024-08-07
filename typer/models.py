@@ -103,7 +103,7 @@ class CommandInfo:
         hidden: bool = False,
         deprecated: bool = False,
         # Rich settings
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
     ):
         self.name = name
         self.cls = cls
@@ -118,7 +118,7 @@ class CommandInfo:
         self.hidden = hidden
         self.deprecated = deprecated
         # Rich settings
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
 
 
 class TyperInfo:
@@ -144,7 +144,7 @@ class TyperInfo:
         hidden: bool = Default(False),
         deprecated: bool = Default(False),
         # Rich settings
-        rich_help_panel: Union[str, None] = Default(None),
+        help_panel: Union[str, None] = Default(None),
     ):
         self.typer_instance = typer_instance
         self.name = name
@@ -163,7 +163,7 @@ class TyperInfo:
         self.add_help_option = add_help_option
         self.hidden = hidden
         self.deprecated = deprecated
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
 
 
 class ParameterInfo:
@@ -218,7 +218,7 @@ class ParameterInfo:
         allow_dash: bool = False,
         path_type: Union[None, Type[str], Type[bytes]] = None,
         # Rich settings
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
     ):
         # Check if user has provided multiple custom parsers
         if parser and click_type:
@@ -270,7 +270,7 @@ class ParameterInfo:
         self.allow_dash = allow_dash
         self.path_type = path_type
         # Rich settings
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
 
 
 class OptionInfo(ParameterInfo):
@@ -334,7 +334,7 @@ class OptionInfo(ParameterInfo):
         allow_dash: bool = False,
         path_type: Union[None, Type[str], Type[bytes]] = None,
         # Rich settings
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
     ):
         super().__init__(
             default=default,
@@ -380,7 +380,7 @@ class OptionInfo(ParameterInfo):
             allow_dash=allow_dash,
             path_type=path_type,
             # Rich settings
-            rich_help_panel=rich_help_panel,
+            help_panel=help_panel,
         )
         self.prompt = prompt
         self.confirmation_prompt = confirmation_prompt
@@ -445,7 +445,7 @@ class ArgumentInfo(ParameterInfo):
         allow_dash: bool = False,
         path_type: Union[None, Type[str], Type[bytes]] = None,
         # Rich settings
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
     ):
         super().__init__(
             default=default,
@@ -491,7 +491,7 @@ class ArgumentInfo(ParameterInfo):
             allow_dash=allow_dash,
             path_type=path_type,
             # Rich settings
-            rich_help_panel=rich_help_panel,
+            help_panel=help_panel,
         )
 
 

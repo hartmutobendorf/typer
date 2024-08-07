@@ -299,14 +299,14 @@ class TyperArgument(click.core.Argument):
         help: Optional[str] = None,
         hidden: bool = False,
         # Rich settings
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
     ):
         self.help = help
         self.show_default = show_default
         self.show_choices = show_choices
         self.show_envvar = show_envvar
         self.hidden = hidden
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
         kwargs: Dict[str, Any] = {
             "param_decls": param_decls,
             "type": type,
@@ -453,7 +453,7 @@ class TyperOption(click.core.Option):
         show_choices: bool = True,
         show_envvar: bool = False,
         # Rich settings
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
     ):
         # TODO: when deprecating Click 7, remove custom kwargs with prompt_required
         # and call super().__init__() directly
@@ -492,7 +492,7 @@ class TyperOption(click.core.Option):
             _typer_param_setup_autocompletion_compat(
                 self, autocompletion=autocompletion
             )
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
 
     def _get_default_string(
         self,
@@ -671,7 +671,7 @@ class TyperCommand(click.core.Command):
         deprecated: bool = False,
         # Rich settings
         rich_markup_mode: MarkupMode = None,
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
     ) -> None:
         super().__init__(
             name=name,
@@ -688,7 +688,7 @@ class TyperCommand(click.core.Command):
             deprecated=deprecated,
         )
         self.rich_markup_mode: MarkupMode = rich_markup_mode
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
 
     def format_options(
         self, ctx: click.Context, formatter: click.HelpFormatter
@@ -744,12 +744,12 @@ class TyperGroup(click.core.Group):
         ] = None,
         # Rich settings
         rich_markup_mode: MarkupMode = None,
-        rich_help_panel: Union[str, None] = None,
+        help_panel: Union[str, None] = None,
         **attrs: Any,
     ) -> None:
         super().__init__(name=name, commands=commands, **attrs)
         self.rich_markup_mode: MarkupMode = rich_markup_mode
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
 
     def format_options(
         self, ctx: click.Context, formatter: click.HelpFormatter
@@ -794,3 +794,67 @@ class TyperGroup(click.core.Group):
             ctx=ctx,
             markup_mode=self.rich_markup_mode,
         )
+    def format_help_text(self, ctx: click.Context, formatter: click.HelpFormatter) -> None:
+        """Writes the help text to the formatter if it exists."""
+        if self.help is not None:
+            # truncate the help text to the first form feed
+            text = inspect.cleandoc(self.help).partition("\f")[0]
+        else:
+            text = ""
+
+        if self.deprecated:
+            text = _("(Deprecated) {text}").format(text=text)
+
+        if text:
+            formatter.write_paragraph()
+
+            with formatter.indentation():
+                formatter.write_text(text)
+
+    def format_options(self, ctx: click.Context, formatter: click.HelpFormatter) -> None:
+        """Writes all the options into the formatter if they exist."""
+        opts = []
+        for param in self.get_params(ctx):
+            rv = param.get_help_record(ctx)
+            if rv is not None:
+                opts.append(rv)
+
+        if opts:
+            with formatter.section(_("Options")):
+                formatter.write_dl(opts)
+
+    def format_epilog(self, ctx: click.Context, formatter: click.HelpFormatter) -> None:
+        """Writes the epilog into the formatter if it exists."""
+        if self.epilog:
+            epilog = inspect.cleandoc(self.epilog)
+            formatter.write_paragraph()
+
+            with formatter.indentation():
+                formatter.write_text(epilog)
+    def format_usage(self, ctx: click.Context, formatter: click.HelpFormatter) -> None:
+        """Writes the usage line into the formatter.
+
+        This is a low-level method called by :meth:`get_usage`.
+        """
+        pieces = self.collect_usage_pieces(ctx)
+        formatter.write_usage(ctx.command_path, " ".join(pieces))
+
+    def collect_usage_pieces(self, ctx: click.Context) -> t.List[str]:
+        """Returns all the pieces that go into the usage line and returns
+        it as a list of strings.
+        """
+        rv = [self.options_metavar] if self.options_metavar else []
+
+        for param in self.get_params(ctx):
+            rv.extend(param.get_usage_pieces(ctx))
+
+        return rv
+
+    def get_params(self, ctx: click.Context) -> t.List["Parameter"]:
+        rv = self.params
+        help_option = self.get_help_option(ctx)
+
+        if help_option is not None:
+            rv = [*rv, help_option]
+
+        return rv

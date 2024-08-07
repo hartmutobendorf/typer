@@ -361,7 +361,7 @@ If you installed <a href="https://rich.readthedocs.io/" class="external-link" ta
 
 ### Help Panels for Commands
 
-To set the panel for a command you can pass the argument `rich_help_panel` with the name of the panel you want to use:
+To set the panel for a command you can pass the argument `help_panel` with the name of the panel you want to use:
 
 === "Python 3.6+"
 
@@ -404,9 +404,9 @@ $ python main.py --help
 
 ### Help Panels for CLI Parameters
 
-The same way, you can configure the panels for *CLI arguments* and *CLI options* with `rich_help_panel`.
+The same way, you can configure the panels for *CLI arguments* and *CLI options* with `help_panel`.
 
-And of course, in the same application you can also set the `rich_help_panel` for commands.
+And of course, in the same application you can also set the `help_panel` for commands.
 
 === "Python 3.6+"
 
@@ -464,7 +464,7 @@ $ python main.py create --help
 
 </div>
 
-And of course, the `rich_help_panel` can be used in the same way for commands in the same application.
+And of course, the `help_panel` can be used in the same way for commands in the same application.
 
 And those panels will be shown when you use the main `--help` option.
 

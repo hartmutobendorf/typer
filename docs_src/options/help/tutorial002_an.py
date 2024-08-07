@@ -8,13 +8,13 @@ def main(
     formal: Annotated[
         bool,
         typer.Option(
-            help="Say hi formally.", rich_help_panel="Customization and Utils"
+            help="Say hi formally.", help_panel="Customization and Utils"
         ),
     ] = False,
     debug: Annotated[
         bool,
         typer.Option(
-            help="Enable debugging.", rich_help_panel="Customization and Utils"
+            help="Enable debugging.", help_panel="Customization and Utils"
         ),
     ] = False,
 ):

@@ -94,7 +94,7 @@ ABORTED_TEXT = "Aborted."
 
 MARKUP_MODE_MARKDOWN = "markdown"
 MARKUP_MODE_RICH = "rich"
-_RICH_HELP_PANEL_NAME = "rich_help_panel"
+_help_panel_NAME = "help_panel"
 
 MarkupMode = Literal["markdown", "rich", None]
 
@@ -436,7 +436,7 @@ def _print_options_panel(
         t_styles: Dict[str, Any] = {
             "show_lines": STYLE_OPTIONS_TABLE_SHOW_LINES,
             "leading": STYLE_OPTIONS_TABLE_LEADING,
-            "box": STYLE_OPTIONS_TABLE_BOX,
+            "box": None, # STYLE_OPTIONS_TABLE_BOX,
             "border_style": STYLE_OPTIONS_TABLE_BORDER_STYLE,
             "row_styles": STYLE_OPTIONS_TABLE_ROW_STYLES,
             "pad_edge": STYLE_OPTIONS_TABLE_PAD_EDGE,
@@ -456,7 +456,7 @@ def _print_options_panel(
         console.print(
             Panel(
                 options_table,
-                border_style=STYLE_OPTIONS_PANEL_BORDER,
+                border_style=None, #STYLE_OPTIONS_PANEL_BORDER,
                 title=name,
                 title_align=ALIGN_OPTIONS_PANEL,
             )
@@ -573,12 +573,12 @@ def rich_format_help(
             continue
         if isinstance(param, click.Argument):
             panel_name = (
-                getattr(param, _RICH_HELP_PANEL_NAME, None) or ARGUMENTS_PANEL_TITLE
+                getattr(param, _help_panel_NAME, None) or ARGUMENTS_PANEL_TITLE
             )
             panel_to_arguments[panel_name].append(param)
         elif isinstance(param, click.Option):
             panel_name = (
-                getattr(param, _RICH_HELP_PANEL_NAME, None) or OPTIONS_PANEL_TITLE
+                getattr(param, _help_panel_NAME, None) or OPTIONS_PANEL_TITLE
             )
             panel_to_options[panel_name].append(param)
     default_arguments = panel_to_arguments.get(ARGUMENTS_PANEL_TITLE, [])
@@ -626,7 +626,7 @@ def rich_format_help(
             command = obj.get_command(ctx, command_name)
             if command and not command.hidden:
                 panel_name = (
-                    getattr(command, _RICH_HELP_PANEL_NAME, None)
+                    getattr(command, _help_panel_NAME, None)
                     or COMMANDS_PANEL_TITLE
                 )
                 panel_to_commands[panel_name].append(command)

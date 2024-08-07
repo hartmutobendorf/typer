@@ -5,11 +5,11 @@ from typing_extensions import Annotated
 def main(
     name: Annotated[str, typer.Argument(help="Who to greet")],
     lastname: Annotated[
-        str, typer.Argument(help="The last name", rich_help_panel="Secondary Arguments")
+        str, typer.Argument(help="The last name", help_panel="Secondary Arguments")
     ] = "",
     age: Annotated[
         str,
-        typer.Argument(help="The user's age", rich_help_panel="Secondary Arguments"),
+        typer.Argument(help="The user's age", help_panel="Secondary Arguments"),
     ] = "",
 ):
     """

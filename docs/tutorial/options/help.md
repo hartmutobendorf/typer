@@ -65,7 +65,7 @@ Options:
 
 The same as with *CLI arguments*, you can put the help for some *CLI options* in different panels to be shown with the `--help` option.
 
-If you have installed Rich as described in the docs for [Printing and Colors](../printing.md){.internal-link target=_blank}, you can set the `rich_help_panel` parameter to the name of the panel you want for each *CLI option*:
+If you have installed Rich as described in the docs for [Printing and Colors](../printing.md){.internal-link target=_blank}, you can set the `help_panel` parameter to the name of the panel you want for each *CLI option*:
 
 === "Python 3.6+"
 
@@ -82,9 +82,9 @@ If you have installed Rich as described in the docs for [Printing and Colors](..
     {!> ../docs_src/options/help/tutorial002.py!}
     ```
 
-Now, when you check the `--help` option, you will see a default panel named "`Options`" for the *CLI options* that don't have a custom `rich_help_panel`.
+Now, when you check the `--help` option, you will see a default panel named "`Options`" for the *CLI options* that don't have a custom `help_panel`.
 
-And below you will see other panels for the *CLI options* that have a custom panel set in the `rich_help_panel` parameter:
+And below you will see other panels for the *CLI options* that have a custom panel set in the `help_panel` parameter:
 
 <div class="termy">
 

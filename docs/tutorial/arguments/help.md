@@ -268,7 +268,7 @@ Options:
 
 You might want to show the help information for *CLI arguments* in different panels when using the `--help` option.
 
-If you have installed Rich as described in the docs for [Printing and Colors](../printing.md){.internal-link target=_blank}, you can set the `rich_help_panel` parameter to the name of the panel where you want this *CLI argument* to be shown:
+If you have installed Rich as described in the docs for [Printing and Colors](../printing.md){.internal-link target=_blank}, you can set the `help_panel` parameter to the name of the panel where you want this *CLI argument* to be shown:
 
 === "Python 3.6+"
 
@@ -285,9 +285,9 @@ If you have installed Rich as described in the docs for [Printing and Colors](..
     {!> ../docs_src/arguments/help/tutorial007.py!}
     ```
 
-Then, if you check the `--help` option, you will see a default panel named "`Arguments`" for the *CLI arguments* that don't have a custom `rich_help_panel`.
+Then, if you check the `--help` option, you will see a default panel named "`Arguments`" for the *CLI arguments* that don't have a custom `help_panel`.
 
-And next you will see other panels for the *CLI arguments* that have a custom panel set in the `rich_help_panel` parameter:
+And next you will see other panels for the *CLI arguments* that have a custom panel set in the `help_panel` parameter:
 
 <div class="termy">
 

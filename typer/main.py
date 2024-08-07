@@ -135,14 +135,14 @@ class Typer:
         add_completion: bool = True,
         # Rich settings
         rich_markup_mode: MarkupMode = None,
-        rich_help_panel: Union[str, None] = Default(None),
+        help_panel: Union[str, None] = Default(None),
         pretty_exceptions_enable: bool = True,
         pretty_exceptions_show_locals: bool = True,
         pretty_exceptions_short: bool = True,
     ):
         self._add_completion = add_completion
         self.rich_markup_mode: MarkupMode = rich_markup_mode
-        self.rich_help_panel = rich_help_panel
+        self.help_panel = help_panel
         self.pretty_exceptions_enable = pretty_exceptions_enable
         self.pretty_exceptions_show_locals = pretty_exceptions_show_locals
         self.pretty_exceptions_short = pretty_exceptions_short
@@ -188,7 +188,7 @@ class Typer:
         hidden: bool = Default(False),
         deprecated: bool = Default(False),
         # Rich settings
-        rich_help_panel: Union[str, None] = Default(None),
+        help_panel: Union[str, None] = Default(None),
     ) -> Callable[[CommandFunctionType], CommandFunctionType]:
         def decorator(f: CommandFunctionType) -> CommandFunctionType:
             self.registered_callback = TyperInfo(
@@ -208,7 +208,7 @@ class Typer:
                 add_help_option=add_help_option,
                 hidden=hidden,
                 deprecated=deprecated,
-                rich_help_panel=rich_help_panel,
+                help_panel=help_panel,
             )
             return f
 
@@ -229,7 +229,7 @@ class Typer:
         hidden: bool = False,
         deprecated: bool = False,
         # Rich settings
-        rich_help_panel: Union[str, None] = Default(None),
+        help_panel: Union[str, None] = Default(None),
     ) -> Callable[[CommandFunctionType], CommandFunctionType]:
         if cls is None:
             cls = TyperCommand
@@ -250,7 +250,7 @@ class Typer:
                     hidden=hidden,
                     deprecated=deprecated,
                     # Rich settings
-                    rich_help_panel=rich_help_panel,
+                    help_panel=help_panel,
                 )
             )
             return f
@@ -279,7 +279,7 @@ class Typer:
         hidden: bool = Default(False),
         deprecated: bool = Default(False),
         # Rich settings
-        rich_help_panel: Union[str, None] = Default(None),
+        help_panel: Union[str, None] = Default(None),
     ) -> None:
         self.registered_groups.append(
             TyperInfo(
@@ -300,7 +300,7 @@ class Typer:
                 add_help_option=add_help_option,
                 hidden=hidden,
                 deprecated=deprecated,
-                rich_help_panel=rich_help_panel,
+                help_panel=help_panel,
             )
         )
 
@@ -529,7 +529,7 @@ def get_group_from_info(
         deprecated=solved_info.deprecated,
         rich_markup_mode=rich_markup_mode,
         # Rich settings
-        rich_help_panel=solved_info.rich_help_panel,
+        help_panel=solved_info.help_panel,
     )
     return group
 
@@ -597,7 +597,7 @@ def get_command_from_info(
         deprecated=command_info.deprecated,
         rich_markup_mode=rich_markup_mode,
         # Rich settings
-        rich_help_panel=command_info.rich_help_panel,
+        help_panel=command_info.help_panel,
     )
     return command
 
@@ -905,7 +905,7 @@ def get_click_param(
                 shell_complete=parameter_info.shell_complete,
                 autocompletion=get_param_completion(parameter_info.autocompletion),
                 # Rich settings
-                rich_help_panel=parameter_info.rich_help_panel,
+                help_panel=parameter_info.help_panel,
             ),
             convertor,
         )
@@ -938,7 +938,7 @@ def get_click_param(
                 envvar=parameter_info.envvar,
                 autocompletion=get_param_completion(parameter_info.autocompletion),
                 # Rich settings
-                rich_help_panel=parameter_info.rich_help_panel,
+                help_panel=parameter_info.help_panel,
             ),
             convertor,
         )

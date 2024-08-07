@@ -5,10 +5,10 @@ def main(
     name: str,
     lastname: str = typer.Option("", help="Last name of person to greet."),
     formal: bool = typer.Option(
-        False, help="Say hi formally.", rich_help_panel="Customization and Utils"
+        False, help="Say hi formally.", help_panel="Customization and Utils"
     ),
     debug: bool = typer.Option(
-        False, help="Enable debugging.", rich_help_panel="Customization and Utils"
+        False, help="Enable debugging.", help_panel="Customization and Utils"
     ),
 ):
     """
